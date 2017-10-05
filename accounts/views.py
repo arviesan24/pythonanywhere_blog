@@ -11,7 +11,7 @@ from .forms import UserLoginForm, UserRegisterForm  #import classes from the for
 # Create your views here.
 
 def login_view(request):
-    print(request.user.is_authenticated())
+    #print(request.user.is_authenticated())  #print true if user is logged in
     next = request.GET.get("next")
     title = "Login"
     form = UserLoginForm(request.POST or None)  #will get the value of form from forms.py via POST if not empty
