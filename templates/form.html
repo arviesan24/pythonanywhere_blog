@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-sm-6 col-sm-offset-3 main_div_class">
+    <center><h1>{{ title }}</h1></center>
+    <hr/>
+    <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+    {{ form|crispy }} <!-- as_p means paragraph which is connected to forms.py --changed to crispy-->
+    <input type="submit" class="btn btn-custom btn-block" value="{{ title }}">
+    </form>
+    <hr/>
+    <small>
+        {% if title == "Register" %}
+            Already have an account? Login <a href="{% url 'login' %}">here.</a>
+        {% endif %}
+
+        {% if title == "Login" %}
+
+            <a href="{% url 'password_reset' %}">Forgot your password?</a> |
+            New user? Sign-up <a href="{% url 'register' %}">here.</a>
+        {% endif %}
+    </small>
+</div>
+{% endblock content %}

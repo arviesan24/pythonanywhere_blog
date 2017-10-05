@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}Stainless Talong{% endblock head_title %}</title>
+    <!-- Font awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Local CSS files -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+
+    <!-- Local JS files -->
+    <script src="{% static 'js/jQuery.paginate.js' %}"></script>
+
+<script type="text/javascript">
+
+$(function() {
+    $(".content-markdown").each(function() { //get all the value from class content-markdown
+        var content = $(this).text() // $(this) is equal to .content-markdown
+        var markedContent = marked(content)
+        $(this).html(markedContent) //replace all text from content-markdown class
+    })
+
+    $(".post-detail-item img").each(function() { //get the img tag that has a content-markdown parent class
+        $(this).addClass("img-responsive") //add img-responsive to that tag
+    })
+
+     //preview-content
+    var contentInput = $("#id_content");
+
+    function setContent(value) {
+        var markedContent = marked(value)
+        $("#preview-content").html(markedContent)
+        $("#preview-content img").each(function() {
+            $(this).addClass("img-responsive")
+        })
+    }
+
+    setContent(contentInput.val())
+
+    contentInput.keyup(function() {
+        var newContent = $(this).val()
+        setContent(newContent)
+    })
+
+    //preview-title
+    var titleInput = $("#id_title");
+
+
+    function setTitle(value) {
+        $("#preview-title").text(value)
+    }
+    setTitle(titleInput.val())
+
+    titleInput.keyup(function(){
+        var newContent = $(this).val()
+        setTitle(newContent)
+    })
+
+    $(".comment-reply-btn").click(function(event) {
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+
+})
+
+
+
+</script>
+
+    <!--ADSENSE HEADER-->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5206347871209233",
+        enable_page_level_ads: true
+      });
+    </script>
+
+    <style>
+        {% block style %}{% endblock style %}
+    </style>
+
+    {% block head_extra %} {% endblock head_extra %}
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+        {% include "message_display.html" %}
+    <div class="container">
+            <nav class="navbar navbar-fixed-top navbar-custom">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#CollapsingNav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'posts:list' %}"><span class="glyphicon glyphicon-home"></span> Home</a>
+                    </div><!--<div class="navbar-header">-->
+                    <div class="collapse navbar-collapse" id="CollapsingNav">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                {% block post_detail_link %}
+
+                                {% endblock %}
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if not request.user.is_authenticated %}
+                                <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                            {% else %}
+                                <li><a href="{% url 'posts:create' %}"><span class="glyphicon glyphicon-pencil"></span> Create Post</a></li>
+                                <!--create user actions dropdown-->
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-user"></span> {{ request.user }} <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#"> My Account</a></li>
+                                        <li><a href="{% url 'password_reset' %}"> Change Password</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        {% if user.is_superuser %}
+                                            <li><a href="{% url 'admin:login' %}"><span class="glyphicon glyphicon-king"></span> Admin Panel</a></li>
+                                        {% endif %}
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    </ul>
+                                </li>
+
+                            {% endif %}
+
+                        </ul>
+                    </div><!--<div class="collapse navbar-collapse" id="CollapsingNav">-->
+                </div><!--<div class="container-fluid">-->
+            </nav>
+        <br/><br/>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {% if message.tags == "success" %}
+                        <strong>Well done!</strong>
+                    {% elif message.tags == "info" %}
+                        <strong>Heads up!</strong>
+                    {% elif message.tags == "warning" %}
+                        <strong>Warning!</strong>
+                    {% elif message.tags == "danger" %}
+                        <strong>Oh snap!</strong>
+                    {% endif %}
+
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %} {% endblock content %}
+    </div><!--<div class="container">-->
+
+
+
+    <div id="footer">
+        <hr/>
+        <footer class="text-center">Stainless Talong © 2017. All Rights Reserved.</footer>
+    </div>
+</body>
+
+
+</html>
+<script>
+
+  $(document).ready(function() {
+
+   var docHeight = $(window).height();
+   var footerHeight = $('#footer').height();
+   var footerTop = $('#footer').position().top + footerHeight;
+
+   if (footerTop < docHeight) {
+    $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+   }
+  });
+ </script>
