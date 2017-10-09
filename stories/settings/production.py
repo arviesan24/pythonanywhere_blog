@@ -21,10 +21,10 @@ EMAIL_HOST_USER = 'ctechnology24@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Arvie <ctechnology24@gmail.com>'
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS')
 
 ADMINS = (
-	('Arvie', 'ctechnology24@gmail.com'),
+	('Arvie', os.environ.get('EMAIL_ADDRESS')),
 )
 MANAGERS = ADMINS
 
@@ -109,18 +109,32 @@ WSGI_APPLICATION = 'stories.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
+#DEFAULT DB SETTINGS
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+#
+# import dj_database_url
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'database': os.environ.get('DB_NAME'),
+            'user': os.environ.get('DB_USERNAME'),
+            'password': os.environ.get('DB_PASSWORD'),
+            'default-character-set': 'utf8',
+        },
     }
 }
 
 
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-#DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
