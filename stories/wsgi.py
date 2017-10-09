@@ -14,7 +14,7 @@ path = '/home/stainlesstalong/pythonanywhere_blog/stories'
 if path not in sys.path:
 	sys.path.append(path)
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "pythonanywhere_blog.stories.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "stories.settings"
 
 from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler
