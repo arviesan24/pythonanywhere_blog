@@ -10,11 +10,11 @@ https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/
 import os
 import sys
 
-path = '/home/stainlesstalong/stories'
+path = '/home/stainlesstalong/pythonanywhere_blog/stories'
 if path not in sys.path:
 	sys.path.append(path)
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "stories.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "pythonanywhere_blog.stories.settings"
 
 from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler
