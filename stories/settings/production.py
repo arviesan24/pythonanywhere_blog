@@ -35,7 +35,7 @@ MANAGERS = ADMINS
 SECRET_KEY = os.environ.get('SECRET_KEY','(%+6zl-dtj68hha_6to+9381887%yfr#3c%49fy(wsj^hyd(oz')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['stainless-talong.pythonanywhere.com']  #"192.168.254.103"
 	
