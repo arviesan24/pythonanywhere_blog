@@ -37,7 +37,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY','(%+6zl-dtj68hha_6to+9381887%yfr#3c%49f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stainless-talong.pythonanywhere.com']  #"192.168.254.103"
+ALLOWED_HOSTS = ['stainlesstalong.pythonanywhere.com']  #"192.168.254.103"
 	
 CORS_REPLACE_HTTPS_REFERER      = True
 HOST_SCHEME                     = "https://"
