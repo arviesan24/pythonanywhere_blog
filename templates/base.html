@@ -135,7 +135,7 @@ fjs.parentNode.insertBefore(js, fjs);
                                         <span class="glyphicon glyphicon-user"></span> {{ request.user }} <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#"> My Account</a></li>
+                                        <!--<li><a href="#"> My Account</a></li>-->
                                         <li><a href="{% url 'password_reset' %}"> Change Password</a></li>
                                         <li role="separator" class="divider"></li>
                                         {% if user.is_superuser %}
