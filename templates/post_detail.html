@@ -9,6 +9,10 @@
 {% block post_detail_link %}
 {% if request.user == post_creator %} <!--if logged in user is the creator of the Post-->
 <!--<li><a href="{{ instance.get_absolute_url }}">{{ instance.title }}</a></li>-->
+
+
+
+
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <span class="glyphicon glyphicon-book"></span> {{ instance.title }} <span class="caret"></span>
 </a>
