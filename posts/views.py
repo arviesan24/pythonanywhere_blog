@@ -77,7 +77,7 @@ def post_detail(request, slug=None):  #retrieve
     #END OF COMMENT SECTION=====================
 
 
-    #=============PAGINATION TRIAL=============
+    #=============PAGINATION=============
     #Detect the breaklines from DB and split the paragraphs using it
     tempInstance = instance.content
     PaginatedInstance = tempInstance.split("\r\n\r\n")
@@ -95,7 +95,7 @@ def post_detail(request, slug=None):  #retrieve
 
     #Post.content = Paginated
 
-    #=========END OF PAGINATION TRIAL==========
+    #=========END OF PAGINATION==========
 
     context = {
         "title": instance.title,
