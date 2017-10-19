@@ -13,10 +13,13 @@ from django.contrib import messages
 from .forms import PostForm
 from .models import Post
 
+
+
+
 @login_required  #keep this line if you want to allow all users to create a post
 def post_create(request):
     #next 2 lines will only allow staff and superuser to create--remove @login_required if this will be uncommented
-    if not request.user.is_staff or not request.user.is_superuser:  #give error if not authorized user
+    if not request.user.is_staff and not request.user.is_superuser:  # give error if not authorized user
         raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -144,7 +147,7 @@ def post_list(request):  #list items
     return render(request, "post_list.html", context)  #call index.html and pass the data from context object
 
 def post_update(request, slug=None):
-    if not request.user.is_staff or not request.user.is_superuser:  #give error if not authorized user
+    if not request.user.is_staff and not request.user.is_superuser:  #give error if not authorized user
         raise Http404
     instance = get_object_or_404(Post, slug=slug)  #call slug from template using instance.slug
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
@@ -163,7 +166,7 @@ def post_update(request, slug=None):
 
 
 def post_delete(request, slug=None):
-    if not request.user.is_staff or not request.user.is_superuser:  #give error if not authorized user
+    if not request.user.is_staff and not request.user.is_superuser:  #give error if not authorized user
         raise Http404
     instance = get_object_or_404(Post, slug=slug)
     instance.delete()

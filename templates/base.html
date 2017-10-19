@@ -140,12 +140,14 @@ fjs.parentNode.insertBefore(js, fjs);
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <!--<li><a href="#"> My Account</a></li>-->
-                                        <li><a href="{% url 'password_reset' %}"> Change Password</a></li>
-                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{% url 'admin:password_change' %}"> Change Password</a></li>
+
                                         {% if user.is_superuser %}
+                                            <li role="separator" class="divider"></li>
                                             <li><a href="{% url 'admin:login' %}"><span class="glyphicon glyphicon-king"></span> Admin Panel</a></li>
+                                            <li role="separator" class="divider"></li>
                                         {% endif %}
-                                        <li role="separator" class="divider"></li>
+
                                         <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                                     </ul>
                                 </li>
