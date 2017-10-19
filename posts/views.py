@@ -13,11 +13,11 @@ from django.contrib import messages
 from .forms import PostForm
 from .models import Post
 
-@login_required
+@login_required  #keep this line if you want to allow all users to create a post
 def post_create(request):
     #next 2 lines will only allow staff and superuser to create--remove @login_required if this will be uncommented
-    # if not request.user.is_staff or not request.user.is_superuser:  #give error if not authorized user
-    #     raise Http404
+    if not request.user.is_staff or not request.user.is_superuser:  #give error if not authorized user
+        raise Http404
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -82,7 +82,7 @@ def post_detail(request, slug=None):  #retrieve
     tempInstance = instance.content
     PaginatedInstance = tempInstance.split("\r\n\r\n")
 
-    paginator = Paginator(PaginatedInstance, 8)  #set how many paragraph to show per page
+    paginator = Paginator(PaginatedInstance, 10)  #set how many paragraph to show per page
 
     page = request.GET.get('page', 1)
 
