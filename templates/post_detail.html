@@ -13,8 +13,6 @@
     <meta property="og:description" content="{{ instance.content|truncatechars:80 }}" />
     {% if instance.image %}
     <meta property=”og:image” content=”{{ instance.image.path }}” />
-    {% else %}
-    <meta property=”og:image” content=”/media_cdn/stainlesstalong.png” />
     {% endif %}
     <meta property="fb:app_id" content="835035136667978" />
 {% endblock fb_meta_tags %}
