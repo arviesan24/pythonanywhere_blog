@@ -90,12 +90,12 @@
 
             <!--comment section-->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#home-comments">Comments</a></li>
-                <li><a href="#hidden-fb">via Facebook</a></li>
+                <li  class="active"><a href="#from-fb-comments">via Facebook</a></li>
+                <li><a href="#home-comments">Comments</a></li>
             </ul>
 
-            <div class="tab-content">
-                <div id="home-comments" class="tab-pane fade in active">
+            <div class="tab-content"><!--div containing the comments-->
+                <div id="home-comments" class="tab-pane fade">
                     <br/>
                     <p><b>{{ comments.count }} Comment{% if comments.count > 1 %}s{% endif %}</b></p><!--<p class="lead">{{ comments.count }} Comments</p>-->
                     {% if request.user.is_authenticated %}
@@ -138,7 +138,7 @@
                     <hr/>
                     {% endfor %}
                 </div>
-                <div id="hidden-fb" class="tab-pane fade">
+                <div id="from-fb-comments" class="tab-pane fade in active">
                     <div class="fb-comments" id="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-width="100%"></div>
                 </div>
             </div>
