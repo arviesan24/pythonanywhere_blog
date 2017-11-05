@@ -5,7 +5,7 @@
 {% endbblock google_meta_tags %}
 
 {% block fb_meta_tags %}
-    <meta property="og:url" content="{{ url 'posts:list' }}" />
+    <meta property="og:url" content="{% url 'posts:list' %}" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="List of Stories" />
     <meta property="og:description" content="Stainless Talong features a collection of fictional stories and anecdotes. A blog site that showcases peculiar type of stories which will make you laugh out loud and learn at the same time." />
